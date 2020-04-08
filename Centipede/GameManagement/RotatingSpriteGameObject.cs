@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace FlappyBird
+namespace Centipede
 {
     /// <summary>
     /// SpriteGameObject that handles rotated sprites. Overrides Draw method WITHOUT call to base.Draw.
@@ -14,6 +14,7 @@ namespace FlappyBird
     {
         protected GameObject targetObject;
         protected float offsetDegrees;
+        
 
         private float radians;
         /// <summary>
@@ -105,7 +106,7 @@ namespace FlappyBird
                 Vector2 targetVector = targetObject.GlobalPosition - GlobalPosition;              
                 AngularDirection = targetVector;
             }
-
+           
             base.Update(gameTime);
         }
 
