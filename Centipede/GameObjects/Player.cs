@@ -14,161 +14,163 @@ namespace Centipede
 {
     class Player : RotatingSpriteGameObject
     {
-        FirePatterns firePatterns;
-        
-
-        int pressed = 0;
         int framecounter = 0;
-        bool starttimer = false;
-        bool movement = false;
+        FirePatterns firePatterns;
+        Weapons weapons;
+        public int hp;
+        public bool hit = false;
+
+
+
+        public Vector2 truePlayer;
+        public Vector2 trueWall;
         public bool shoot = false;
+
+        public bool right, left, up, down = false;
+
+
         public Player(String assetName) : base(assetName)
         {
+            hp = 3;
+            weapons = new Weapons();
+
             firePatterns = new FirePatterns();
             Reset();
-          
+
             //origin = new Vector2(sprite.Width / 2, sprite.Height);
             origin = Center;
-            
 
-           
-            
+
+
+
         }
 
         public override void Reset()
         {
             position.X = GameEnvironment.Screen.X / 2;
             position.Y = GameEnvironment.Screen.Y / 2;
+            velocity.X = 7.5f;
         }
 
 
 
         public override void HandleInput(InputHelper inputHelper)
         {
-            if(inputHelper.KeyPressed(Keys.Q))
-            {
-                movement = true;
-            }
-
-            if (!movement)
-            {
-                if (inputHelper.IsKeyDown(Keys.D) || inputHelper.IsKeyDown(Keys.Right))
+            
+            weapons.HandleInput(inputHelper);
+            base.HandleInput(inputHelper);
+            framecounter++;
+           
+            
+                if (inputHelper.MouseLeftButtonPressed())
                 {
-                    Angle += 0.1f;
-                }
-                if (inputHelper.IsKeyDown(Keys.A) || inputHelper.IsKeyDown(Keys.Left))
-                {
-                    Angle -= 0.1f;
-                }
-                if (inputHelper.IsKeyDown(Keys.W) || inputHelper.IsKeyDown(Keys.Up))
-                {
-                    velocity.X = 7.5f;                 
-                }
-                else
-                {
-                    velocity.X = 4;
-                }
-                
-
-                if (inputHelper.IsKeyDown(Keys.S) || inputHelper.IsKeyDown(Keys.Down))
-                {
-                    velocity.X = 7.5f;
-
-
-                }
-
-
-
-                position += AngularDirection * velocity.X;
-
-
-                if (inputHelper.KeyPressed(Keys.Space))
-                {
-                    
-                    shoot = true;
+                    if (weapons.fireRate <= framecounter)
+                    {
+                        framecounter = 0;
+                        shoot = true;
+                    }
                 }
                 else { shoot = false; }
-            }
-
-                if(movement)
-                {
-                    if(inputHelper.IsKeyDown(Keys.W))
-                    {
-                        position.Y -= 7.5f;
-                        
-                    }
-                    if (inputHelper.IsKeyDown(Keys.S))
-                    {
-                        position.Y += 7.5f;
-                    }
-                    if (inputHelper.IsKeyDown(Keys.D))
-                    {
-                        position.X += 7.5f;
-
-                    }
-                    if (inputHelper.IsKeyDown(Keys.A))
-                    {
-                        position.X -= 7.5f;
-
-                    }
-                  
-                }
             
 
-            if(inputHelper.KeyPressed(Keys.LeftShift))
-            {
-                pressed++;
-                starttimer = true;
-            }
 
 
 
- 
-            base.HandleInput(inputHelper);
 
-            
-            
+            if (inputHelper.IsKeyDown(Keys.W) && !down) { velocity.Y = -300; }
+            else if (inputHelper.IsKeyDown(Keys.S) && !up) { velocity.Y = 300; }
+            else velocity.Y = 0;
+
+            if (inputHelper.IsKeyDown(Keys.D) && !left) { velocity.X = 300; }
+            else if (inputHelper.IsKeyDown(Keys.A) && !right) { velocity.X = -300; }
+            else { velocity.X = 0; }
+
+            AngularDirection = new Vector2(inputHelper.MousePosition.X, 100);
+
         }
 
         public override void Update(GameTime gameTime)
         {
-            if(starttimer)
-            {
-                framecounter++;
-            }
             base.Update(gameTime);
-            position.X = MathHelper.Clamp(position.X, 175, GameEnvironment.Screen.X - sprite.Width - 125);
-            position.Y = MathHelper.Clamp(position.Y, 100, GameEnvironment.Screen.Y - sprite.Height - 70);
-            if (framecounter <= 30)
+            if(hit)
             {
-                if (pressed >= 2)
+                hp--;
+                hit = false;
+            }
+        }
+
+
+
+
+        public void WallHit(Vector2 wallPos)
+        {
+
+
+            Vector2 walloffset = Vector2.One * (32);
+            Vector2 playerOffset = Vector2.One * (25);
+
+            Vector2 playerPos = new Vector2(position.X, position.Y);
+
+            Console.WriteLine(playerPos);
+
+            trueWall = (wallPos);
+            truePlayer = (playerPos - origin);
+
+            Vector2 simple = (truePlayer - trueWall);
+
+            Vector2 truePos = (simple / (Vector2.One * 57f));
+
+            if (Math.Abs(simple.X) < Math.Abs(simple.Y))
+            {
+                // above or below
+                if (truePos.Y < 0)
                 {
-                    Dash();
-                    pressed = 0;
-                    starttimer = false;
-                    framecounter = 0;
+                    Console.WriteLine("above");
+                    up = true;
 
                 }
-            }
+                else if (truePos.Y > 0)
+                {
+                    Console.WriteLine("bellow");
+                    down = true;
 
-            if(framecounter >= 30 )
+
+                }
+
+
+
+
+            }
+            else
             {
-                starttimer = false;
-                pressed = 0;
-                framecounter = 0;
+                //it's left or right
+                if (truePos.X > 0)
+                {
+                    Console.WriteLine("right");
+                    right = true;
+
+                }
+                else if (truePos.X < 0)
+                {
+                    Console.WriteLine("left");
+                    left = true;
+
+                }
+
             }
+
+
+
+
+
         }
 
 
 
-        public void Dash()
-        {
-            velocity.X *= 25;
-            position += AngularDirection * velocity.X;
-            
-        }
 
 
- 
+
+
+
     }
 }

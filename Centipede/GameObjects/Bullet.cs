@@ -12,19 +12,16 @@ namespace Centipede
     class Bullet : RotatingSpriteGameObject
     {
         public int lifeTime;
+        public bool pastWall = false;
 
-        public Bullet(String assetName, Vector2 AngularDirections, Vector2 startposition, float offsetAngle, bool Enemybullet) : base(assetName)
+        public Bullet(String assetName, Vector2 AngularDirections, Vector2 startposition, float offsetAngle,  int velocity) : base(assetName)
         {
-            origin = Center;
-            AngularDirection = AngularDirections;
-            offsetDegrees = 90;
-            position = startposition;
-            if(Enemybullet)
-            {
-                this.velocity.X = 5f;
-            } else { velocity.X = 10f; }
-            
-            Angle += offsetAngle;
+            this.origin = Center;
+            this.AngularDirection = AngularDirections;
+            this.offsetDegrees = 90;
+            this.position = startposition;
+            this.velocity.X = velocity;       
+            this.Angle += offsetAngle;
 
         }
 
@@ -34,7 +31,12 @@ namespace Centipede
             base.Update(gameTime);
             position += AngularDirection * velocity.X;
 
-        
+            if (position.X > 250 && position.X + sprite.Width < 1728 && position.Y > 250 && position.Y + sprite.Width < 888)
+            {
+                pastWall = true;
+            }
+
+
         }
 
 

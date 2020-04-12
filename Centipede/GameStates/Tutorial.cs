@@ -114,7 +114,7 @@ namespace Centipede
                     if (turrets.tutorialBullet == 1)
                     {
                         Centipede.AssetManager.PlaySound("Sounds/BulletsSound");
-                        bullets.Add(new Bullet("Sprites/Bullet", turrets.AngularDirection, turrets.Position, 0, true));
+                        bullets.Add(new Bullet("Sprites/Bullet", turrets.AngularDirection, turrets.Position, 0, 5));
                         
                     }
                 
@@ -124,7 +124,7 @@ namespace Centipede
                         Centipede.AssetManager.PlaySound("Sounds/BulletsSound");
                         for (int i = 0; i < 5; i++)
                         {
-                            bullets.Add(new Bullet("Sprites/Bullet", turrets.AngularDirection, turrets.Position, -12 + (6 * i), true));
+                            bullets.Add(new Bullet("Sprites/Bullet", turrets.AngularDirection, turrets.Position, -12 + (6 * i) , 5));
                             
 
                         }
@@ -155,7 +155,7 @@ namespace Centipede
                         
                         for (int i = 0; i < 6; i++)
                         {
-                            bullets.Add(new Bullet("Sprites/Bullet", turrets.AngularDirection, abomb.Position, i, true));
+                            bullets.Add(new Bullet("Sprites/Bullet", turrets.AngularDirection, abomb.Position, i, 5));
                         }
                         KillList.Add(abomb);
                         startCounting = true;

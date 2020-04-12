@@ -26,7 +26,9 @@ namespace Centipede
 
         public override void Update(GameTime gameTime)
         {
+            
             this.Text = score.ToString();
+            
            
         }
 

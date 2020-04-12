@@ -14,6 +14,7 @@ namespace Centipede
 {
     class Turret : RotatingSpriteGameObject
     {
+        
 
         bool death = false;
         public int framecounter = 0;
@@ -23,8 +24,15 @@ namespace Centipede
         public int tutorialBullet = 1;
         public float hp = 3;
         public bool hit = false;
+        
+
+
+
         public Turret(String assetName, Vector2 startposition ) : base(assetName)
         {
+            
+            
+            
             position = startposition;
             origin = Center;
             NewCounter = GameEnvironment.Random.Next(120,240);
@@ -46,13 +54,19 @@ namespace Centipede
             framecounter++;
             if(hp <= 0)
             {
+                
                 Reset();
+                
+                
+                
             }
 
             if(this.hit)
             {
+                
                 this.hp--;
                 this.hit = false;
+                
             }
 
         }

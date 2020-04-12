@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 
 namespace Centipede
@@ -15,12 +8,15 @@ namespace Centipede
         public GameObjectList bullets = new GameObjectList();
         public GameObjectList playerbullets = new GameObjectList();
         public GameObjectList bombs = new GameObjectList();
+        Weapons weapon;
 
 
 
 
         public FirePatterns()
         {
+            weapon = new Weapons();
+            this.Add(weapon);
             this.Add(bullets);
             this.Add(bombs);
             this.Add(playerbullets);
@@ -32,7 +28,7 @@ namespace Centipede
         public void Pattern1(Vector2 AngularDirection, Vector2 Position)
         {
             Centipede.AssetManager.PlaySound("Sounds/BulletsSound");
-            bullets.Add(new Bullet("Sprites/Bullet", AngularDirection, Position, 0, true ));
+            bullets.Add(new Bullet("Sprites/Bullet", AngularDirection, Position, 0, 5));
 
         }
 
@@ -41,7 +37,7 @@ namespace Centipede
             Centipede.AssetManager.PlaySound("Sounds/BulletsSound");
             for (int i = 0; i < 5; i++)
             {
-                bullets.Add(new Bullet("Sprites/Bullet", AngularDirection, Position, -12 + (6 * i), true));
+                bullets.Add(new Bullet("Sprites/Bullet", AngularDirection, Position, -12 + (6 * i), 5));
 
             }
 
@@ -61,16 +57,27 @@ namespace Centipede
             Centipede.AssetManager.PlaySound("Sounds/ExplosionSound");
             for (int i = 0; i < 6; i++)
             {
-                bullets.Add(new Bullet("Sprites/Bullet", AngularDirection, Position, i, true));
-            }         
-            
+                bullets.Add(new Bullet("Sprites/Bullet", AngularDirection, Position, i, 5));
+            }
+
         }
 
         public void PlayerShot(Vector2 AngularDirection, Vector2 Position)
         {
 
             Centipede.AssetManager.PlaySound("Sounds/BulletsSound");
-            playerbullets.Add(new Bullet("Sprites/spr_player_bullets", AngularDirection, Position, 0, false));
+            if (weapon.shotgun)
+            {
+                for (int i = 0; i < 6; i++)
+                {                   
+                    playerbullets.Add(new Bullet("Sprites/spr_player_bullets", AngularDirection, Position, -12 + (6 * i), 25));
+                }
+                
+            }
+            if (!weapon.shotgun)
+            {
+                playerbullets.Add(new Bullet("Sprites/spr_player_bullets", AngularDirection, Position, weapon.offsetAngle, 25));
+            }
         }
     }
 

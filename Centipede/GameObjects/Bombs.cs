@@ -16,7 +16,8 @@ namespace Centipede
         int framecounter = 0;
         int spritecounter = 0;
         int i = 0;
-        
+        public bool pastWall = false;
+
         SpriteSheet[] sprites;
         public Bombs(Vector2 AngularDirections, Vector2 startposition, float offsetAngle) : base("Explosion/Spr_Explosion_01")
         {
@@ -51,7 +52,13 @@ namespace Centipede
             base.Update(gameTime);
             this.spritecounter++;
             this.framecounter++;
-            Console.WriteLine(framecounter);
+
+            if (position.X > 250 && position.X + sprite.Width < 1728 && position.Y > 250 && position.Y + sprite.Width < 888)
+            {
+                pastWall = true;
+            }
+
+
 
 
             position += AngularDirection * velocity.X;
