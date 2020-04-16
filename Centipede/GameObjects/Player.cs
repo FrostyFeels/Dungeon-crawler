@@ -17,7 +17,7 @@ namespace Centipede
         int framecounter = 0;
         public int dash;
         FirePatterns firePatterns;
-        Weapons weapons;
+        public Weapons weapons;
         public int hp;
         public bool hit = false;
         public int radius = 150;

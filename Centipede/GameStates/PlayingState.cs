@@ -28,7 +28,7 @@ namespace Centipede
         int framecounter = 0;
         
 
-        Player player;
+        public Player player;
         Score score;
         MouseCursors mouse;
       
@@ -137,8 +137,7 @@ namespace Centipede
 
         public override void Update(GameTime gameTime)
         {
-            Console.WriteLine(weapon.setfireRate);
-            Console.WriteLine(weapon.fireRate);
+       
             base.Update(gameTime);
             foreach (Shield ashield in powerups.shields.Children)
             {
