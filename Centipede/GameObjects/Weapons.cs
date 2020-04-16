@@ -11,8 +11,10 @@ namespace Centipede
 {
     class Weapons : GameObject
     {
-        public  int fireRate = 15;
+        public float setfireRate = 10;
+        public  float fireRate = 15;
         public  float offsetAngle = 0;
+        public float dmg = 1;
         public bool shotgun = false;
         
 
@@ -33,8 +35,9 @@ namespace Centipede
             if (inputHelper.KeyPressed(Keys.O))
             {
                 Shotgun();
-                
+
             }
+           
             if (inputHelper.KeyPressed(Keys.I))
             {
                 Sniper();
@@ -51,32 +54,40 @@ namespace Centipede
         {
             
             base.Update(gameTime);
+  
         }
 
 
         public void Shotgun()
         {
             shotgun = true;
-            fireRate = 30;
+            fireRate = setfireRate * 3;
             offsetAngle = GameEnvironment.Random.Next(-12, 12);
+            dmg = 0.3f;
         }
 
         public void Sniper()
-        {
-            fireRate = 60;
+        {   
+            shotgun = false;
+            fireRate = setfireRate * 6;
             offsetAngle = 0;
+            dmg = 3f;
         }
 
         public void Pistol()
         {
-            fireRate = 15;
+            shotgun = false;
+            fireRate = setfireRate * 1.5f;
             offsetAngle = 0;
+            dmg = 1;
         }
 
         public void SemiAuto()
         {
-            fireRate = 10;
+            shotgun = false;
+            fireRate = setfireRate;
             offsetAngle = 0;
+            dmg = 0.5f;
         }
 
     }

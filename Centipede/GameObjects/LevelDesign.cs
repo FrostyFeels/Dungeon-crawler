@@ -55,50 +55,50 @@ namespace Centipede
                 {
                     if (x <= xPosition + width && x >= xPosition && y <= yPosition + height && y >= yPosition)
                     {
-                        AddWall(x, y, i = 10);
+                        AddWall(x, y, 7);
                     }
                     else if (x <= 1)
                     {
 
-                        AddWall(x, y, i = 9);
+                        AddWall(x, y, i = 10);
                     }
                     else if (x == 2 && y >= 3 && y <= 14)
                     {
-                        AddWall(x, y, i = 8);
+                        AddWall(x, y, i = GameEnvironment.Random.Next(8, 10));
                     }
                     else if (x >= 28)
                     {
 
-                        AddWall(x, y, 9);
+                        AddWall(x, y, 10);
                     }
                     else if (x == 27 && y >= 3 && y <= 13)
                     {
 
-                        AddWall(x, y, 8);
+                        AddWall(x, y, GameEnvironment.Random.Next(8,10));
                     }
                     else if (y <= 1)
                     {
 
-                        AddWall(x, y, 9);
+                        AddWall(x, y, 10);
                     }
                     else if (y == 2)
                     {
 
-                        AddWall(x, y, 8);
+                        AddWall(x, y, GameEnvironment.Random.Next(8, 10));
                     }
                     else if (y == 14)
                     {
 
-                        AddWall(x, y, 8);
+                        AddWall(x, y, GameEnvironment.Random.Next(8, 10));
                     }
                     else if (y >= 15)
                     {
 
-                        AddWall(x, y, 9);
+                        AddWall(x, y, 10);
                     }
                     else
                     {
-                        i = GameEnvironment.Random.Next(0, 8);
+                        i = GameEnvironment.Random.Next(0, 7);
                         AddWall(x, y, i);
                     }
 

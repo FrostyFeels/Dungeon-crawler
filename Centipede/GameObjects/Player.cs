@@ -15,10 +15,15 @@ namespace Centipede
     class Player : RotatingSpriteGameObject
     {
         int framecounter = 0;
+        public int dash;
         FirePatterns firePatterns;
         Weapons weapons;
         public int hp;
         public bool hit = false;
+        public int radius = 150;
+
+   
+        
 
 
 
@@ -27,18 +32,19 @@ namespace Centipede
         public bool shoot = false;
 
         public bool right, left, up, down = false;
+        
 
 
         public Player(String assetName) : base(assetName)
         {
-            hp = 3;
+            hp = 5;
             weapons = new Weapons();
 
             firePatterns = new FirePatterns();
-            Reset();
-
-            //origin = new Vector2(sprite.Width / 2, sprite.Height);
+            Reset();          
             origin = Center;
+            radius = 250;
+            
 
 
 
@@ -60,6 +66,32 @@ namespace Centipede
             weapons.HandleInput(inputHelper);
             base.HandleInput(inputHelper);
             framecounter++;
+
+            if (dash > 0)
+            {
+
+                if (inputHelper.KeyPressed(Keys.LeftShift))
+                {
+                    if (velocity.X > 0)
+                    {
+                        Dash("right");
+                    }
+                    else if (velocity.X < 0)
+                    {
+                        Dash("left");
+                    }
+                    else if (velocity.Y > 0)
+                    {
+                        Dash("down");
+
+                    }
+                    else if (velocity.Y < 0)
+                    {
+                        Dash("up");
+                    }
+                    dash--;
+                }
+            }
            
             
                 if (inputHelper.MouseLeftButtonPressed())
@@ -71,6 +103,8 @@ namespace Centipede
                     }
                 }
                 else { shoot = false; }
+
+
             
 
 
@@ -87,16 +121,47 @@ namespace Centipede
 
             AngularDirection = new Vector2(inputHelper.MousePosition.X, 100);
 
+          
+
         }
 
         public override void Update(GameTime gameTime)
         {
+           
             base.Update(gameTime);
             if(hit)
             {
                 hp--;
                 hit = false;
             }
+        }
+
+        public void Dash(String whatSide) 
+        {
+            switch(whatSide)
+            {
+                case "right":
+                    {
+                        position.X += 250;
+                        break;
+                    }
+                case "left":
+                    {
+                        position.X += -250;
+                        break;
+                    }
+                case "down":
+                    {
+                        position.Y += 250;
+                        break;
+                    }
+                case "up":
+                    {
+                        position.Y += -250;
+                        break;
+                    }
+            }
+            
         }
 
 

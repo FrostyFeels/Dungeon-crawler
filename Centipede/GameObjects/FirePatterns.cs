@@ -23,6 +23,11 @@ namespace Centipede
             SoundEffect.MasterVolume = 0.05f;
         }
 
+        public override void HandleInput(InputHelper inputHelper)
+        {
+            base.HandleInput(inputHelper);
+          
+        }
 
 
         public void Pattern1(Vector2 AngularDirection, Vector2 Position)
@@ -37,7 +42,7 @@ namespace Centipede
             Centipede.AssetManager.PlaySound("Sounds/BulletsSound");
             for (int i = 0; i < 5; i++)
             {
-                bullets.Add(new Bullet("Sprites/Bullet", AngularDirection, Position, -12 + (6 * i), 5));
+                bullets.Add(new Bullet("Sprites/Bullet", AngularDirection, Position, -24 + (12 * i), 5));
 
             }
 
@@ -70,7 +75,7 @@ namespace Centipede
             {
                 for (int i = 0; i < 6; i++)
                 {                   
-                    playerbullets.Add(new Bullet("Sprites/spr_player_bullets", AngularDirection, Position, -12 + (6 * i), 25));
+                    playerbullets.Add(new Bullet("Sprites/spr_player_bullets", AngularDirection, Position, -4 + (2 * i), 25));
                 }
                 
             }
@@ -78,6 +83,26 @@ namespace Centipede
             {
                 playerbullets.Add(new Bullet("Sprites/spr_player_bullets", AngularDirection, Position, weapon.offsetAngle, 25));
             }
+        }
+
+
+        public void EnemyShot(Vector2 AngularDirection, Vector2 Position)
+        {
+            Centipede.AssetManager.PlaySound("Sounds/BulletsSound");
+           
+                bullets.Add(new Bullet("Sprites/Bullet", AngularDirection, Position, 0, 5));
+
+            
+        }
+
+        public void EnemyShotGun(Vector2 AngularDirection, Vector2 Position)
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                bullets.Add(new Bullet("Sprites/Bullet", AngularDirection, Position, -24 + (12 * i), 5));
+
+            }
+
         }
     }
 

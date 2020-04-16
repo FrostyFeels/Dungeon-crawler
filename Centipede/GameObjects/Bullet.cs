@@ -21,7 +21,7 @@ namespace Centipede
             this.offsetDegrees = 90;
             this.position = startposition;
             this.velocity.X = velocity;       
-            this.Angle += offsetAngle;
+            this.Degrees += offsetAngle;
 
         }
 

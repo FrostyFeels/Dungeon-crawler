@@ -20,10 +20,11 @@ namespace Centipede
             sprites[4] = new SpriteSheet("spr_fill_01");
             sprites[5] = new SpriteSheet("spr_fill_01");
             sprites[6] = new SpriteSheet("spr_fill_01");
-            sprites[7] = new SpriteSheet("spr_fill_01");
-            sprites[8] = new SpriteSheet("spr_fill_roof_01");
-            sprites[9] = new SpriteSheet("spr_fill_roof_02");
-            sprites[10] = new SpriteSheet("spr_fill_roof_collide");
+            sprites[7] = new SpriteSheet("spr_fill_roof_collide");
+            sprites[8] = new SpriteSheet("spr_wall_01");           
+            sprites[9] = new SpriteSheet("spr_wall_02");
+            sprites[10] = new SpriteSheet("spr_fill_roof_02");
+            
 
             sprite = sprites[i];
 

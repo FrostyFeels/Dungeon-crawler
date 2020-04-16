@@ -66,6 +66,10 @@
     <Compile Include="GameObjects\Button.cs" />
     <Compile Include="GameObjects\Explosion.cs" />
     <Compile Include="GameObjects\FirePatterns.cs" />
+    <Compile Include="GameObjects\Powerups.cs" />
+    <Compile Include="GameObjects\Powerup\Dash.cs" />
+    <Compile Include="GameObjects\Powerup\Shield.cs" />
+    <Compile Include="GameObjects\TurretStand.cs" />
     <Compile Include="GameObjects\Weapons.cs" />
     <Compile Include="GameStates\GameOver.cs" />
     <Compile Include="GameObjects\LevelDesign.cs" />

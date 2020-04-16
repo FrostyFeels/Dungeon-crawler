@@ -14,6 +14,7 @@ namespace Centipede
 {
     class Turret : RotatingSpriteGameObject
     {
+        Weapons weapon;
         
 
         bool death = false;
@@ -30,11 +31,11 @@ namespace Centipede
 
         public Turret(String assetName, Vector2 startposition ) : base(assetName)
         {
-            
-            
-            
+
+
+            weapon = new Weapons();
             position = startposition;
-            origin = Center;
+            origin = new Vector2(sprite.Width/2, sprite.Height/3);
             NewCounter = GameEnvironment.Random.Next(120,240);
             
             
@@ -50,6 +51,8 @@ namespace Centipede
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+            
+
 
             framecounter++;
             if(hp <= 0)
@@ -64,11 +67,17 @@ namespace Centipede
             if(this.hit)
             {
                 
-                this.hp--;
+                this.hp -= weapon.dmg;
                 this.hit = false;
                 
             }
 
+        }
+
+        public override void HandleInput(InputHelper inputHelper)
+        {
+            base.HandleInput(inputHelper);
+            weapon.HandleInput(inputHelper);
         }
 
         public bool Fire(float timer)

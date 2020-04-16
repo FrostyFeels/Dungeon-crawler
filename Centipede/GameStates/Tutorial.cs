@@ -19,6 +19,7 @@ namespace Centipede
 
         int framecounter = 0;
         Turret turrets;
+        TurretStand turretstand;
         Player player;
         Button abutton;
         Button dbutton;
@@ -98,7 +99,8 @@ namespace Centipede
             base.Update(gameTime);
             if(turret && !dontSpawnAgain)
             {
-                this.Add(turrets = new Turret("Sprites/Turret", new Vector2(player.Position.X, player.Position.Y - 300)));
+                this.Add(turrets = new Turret("Sprites/spr_turret", new Vector2(player.Position.X, player.Position.Y - 300)));
+                this.Add(turretstand = new TurretStand(new Vector2(player.Position.X, player.Position.Y - 300), 90));
                 dontSpawnAgain = true;
                 spawned = true;
             }
